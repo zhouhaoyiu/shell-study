@@ -1,0 +1,33 @@
+#!/bin/bash
+
+index=0
+#获得bash中传入的配置
+for i in $*
+do
+  index=$[index+1]
+  if [ ${i} == "-u" ]
+  then
+    _index=`expr $index + 1`
+    username=$(echo $* | cut -d " " -f $_index)
+  elif [ ${i} == "-p" ]
+  then
+    _index=`expr $index + 1`
+    password=$(echo $* | cut -d " " -f $_index)
+  elif [ ${i} == "-h" ]
+  then
+    echo "Usage: ./config.sh -u username -p password"
+    exit 0
+  elif [ ${i} == "-v" ]
+  then
+    echo "Version: 1.0"
+    exit 0
+  fi
+done
+#判断是否有配置
+if [ -z ${username} ] || [ -z ${password} ]
+then
+  echo "Usage: ./config.sh -u username -p password"
+  exit 0
+fi
+echo "username: ${username}"
+echo "password: ${password}"

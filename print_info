@@ -1,0 +1,43 @@
+#!/bin/bash
+print_info() {
+  echo "Your name is ${1}, you are ${2} years old, and you live in ${3}."
+  echo ${4}
+}
+
+name_question="What is your name?"
+age_question="How old are you?"
+address_question="Where do you live?"
+
+echo ${name_question}
+until [ -n "${name}" ]
+do
+    read -p "Your name: " name
+done
+
+echo ${age_question}
+until [ -n "${age}" ]
+do
+    read -p "Your age: " age
+done
+
+echo ${address_question}
+until [ -n "${address}" ]
+do
+    read -p "Your address: " address
+done
+
+echo -e '\033[0;42m'I am $(basename $0) and I am doing something...' \033[0m'
+if [ ${1} == "bash" ]
+then
+    print_info ${name} ${age} ${address} "This code is just for fun"
+elif [ ${1} == "file" ]
+then
+    if ! [ -d info ] 
+    then mkdir info 
+    fi
+    if ! [ -d log ]
+    then mkdir log
+    fi
+    echo -e name: ${name}"\n"age: ${age}"\n"address: ${address}"\n"time: $(date "+%Y-%m-%d %H:%M:%S")> info/${name}.txt
+    echo "File ${name}.txt created $(date "+%Y-%m-%d %H:%M:%S")" >> log/$(basename $0)-log.txt
+fi

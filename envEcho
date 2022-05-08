@@ -1,0 +1,5 @@
+#!/bin/bash
+CURRENT_DIR=$(cd $(dirname $0); pwd)
+PARENT_DIR=$(cd $(dirname $0);cd ..; pwd)
+echo ${CURRENT_DIR}
+echo ${PARENT_DIR}
