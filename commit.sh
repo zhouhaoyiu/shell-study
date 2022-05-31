@@ -38,8 +38,13 @@ do
 
   if [ $i = "-m" ]
   then
+    message=''
     _index=`expr $index + 1`
-    message=$(echo $* | cut -d " " -f $_index)
+    # -m后所有的参数都是commit message,并且保留空格
+    for j in ${@:$_index}
+    do
+      message=$message$j" "
+    done
   fi
 done
 
